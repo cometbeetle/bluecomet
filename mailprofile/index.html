@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Profile Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Email Profile Generator<br>(iOS and macOS)</h1>
+        <form id="profile-form">
+            <div class="form-group">
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname" required placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" required placeholder="Your Email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required placeholder="Your Password">
+            </div>
+            <button type="submit" id="generate-btn">Generate Profile</button>
+        </form>
+        <p id="message"></p>
+        <h5>BlueComet Networks</h5>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
