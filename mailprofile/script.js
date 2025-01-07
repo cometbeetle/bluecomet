@@ -15,7 +15,7 @@ document.getElementById('profile-form').addEventListener('submit', function(e) {
     const xmlProfile = generateProfileXML(email, password, fullname);
 
     // Create a Blob with the XML data
-    const blob = new Blob([xmlProfile], { type: 'application/xml' });
+    const blob = new Blob([xmlProfile], { type: 'application/x-apple-aspen-config' });
     const url = URL.createObjectURL(blob);
     
     // Create a temporary link to trigger the download
