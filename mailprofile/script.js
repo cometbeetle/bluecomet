@@ -29,8 +29,9 @@ document.getElementById('profile-form').addEventListener('submit', function(e) {
 });
 
 function generateProfileXML(email, password, fullname) {
-    const uuid1 = '9f775944-36b5-4f43-9efb-06051e024158'; // Example static UUID, can be generated dynamically if needed
-    const uuid2 = '157cc241-437e-4ba6-9238-2aa6a862f8c9';
+    const uuid1 = 'E040B6E0-0F9E-44AE-BC4A-EC9AF0CD9749'; // Example static UUIDs, can be generated dynamically if needed
+    const uuid2 = '0B171773-4B26-4A3D-8BCF-490D3AE87A7F';
+	const uuid3 = '8C9FACBA-89CF-43EF-BC63-88F2FD1270AF';
 
     // Replace placeholders with user input
     return `<?xml version="1.0" encoding="UTF-8"?>
@@ -66,14 +67,16 @@ function generateProfileXML(email, password, fullname) {
 			<string>mx1.admin.bcomet.net</string>
 			<key>OutgoingMailServerPortNumber</key>
 			<integer>587</integer>
+			<key>OutgoingMailServerUseSSL</key>
+			<true/>
 			<key>OutgoingMailServerUsername</key>
 			<string>${email}</string>
-			<key>OutgoingPassword</key>
-			<string>${password}</string>
 			<key>OutgoingPasswordSameAsIncomingPassword</key>
 			<true/>
+			<key>PayloadDescription</key>
+			<string>Configures Email settings</string>
 			<key>PayloadDisplayName</key>
-			<string>Mail</string>
+			<string>BlueComet Networks</string>
 			<key>PayloadIdentifier</key>
 			<string>com.apple.mail.managed.${uuid1}</string>
 			<key>PayloadType</key>
@@ -82,6 +85,26 @@ function generateProfileXML(email, password, fullname) {
 			<string>${uuid1}</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
+			<key>SMIMEEnableEncryptionPerMessageSwitch</key>
+			<false/>
+			<key>SMIMEEnablePerMessageSwitch</key>
+			<false/>
+			<key>SMIMEEnabled</key>
+			<false/>
+			<key>SMIMEEncryptByDefault</key>
+			<false/>
+			<key>SMIMEEncryptByDefaultUserOverrideable</key>
+			<false/>
+			<key>SMIMEEncryptionEnabled</key>
+			<false/>
+			<key>SMIMESigningEnabled</key>
+			<false/>
+			<key>SMIMESigningUserOverrideable</key>
+			<false/>
+			<key>allowMailDrop</key>
+			<false/>
+			<key>disableMailRecentsSyncing</key>
+			<false/>
 		</dict>
 	</array>
 	<key>PayloadDisplayName</key>
@@ -90,10 +113,12 @@ function generateProfileXML(email, password, fullname) {
 	<string>bluecomet.${uuid2}</string>
 	<key>PayloadOrganization</key>
 	<string>BlueComet Networks</string>
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
-	<string>${uuid2}</string>
+	<string>${uuid3}</string>
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
