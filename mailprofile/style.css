@@ -67,3 +67,22 @@ p {
     color: green;
     margin-top: 15px;
 }
+
+.checkbox-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.checkbox-left input[type="checkbox"] {
+    margin: 0;
+}
+
+.bordered-text {
+    border: 2px solid #1A30A3;
+    padding: 10px;
+    display: inline-block;
+}

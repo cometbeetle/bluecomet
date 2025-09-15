@@ -4,7 +4,8 @@ document.getElementById('profile-form').addEventListener('submit', function(e) {
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
     const fullname = document.getElementById('fullname').value.trim();
-
+	const alias_text = document.getElementById('alias').value.trim();
+	const alias = (alias_text == "") ? email : alias_text;
 
     if (!email || !password || !fullname) {
         alert("At least one field is missing.");
@@ -12,7 +13,7 @@ document.getElementById('profile-form').addEventListener('submit', function(e) {
     }
 
     // Generate the iOS configuration profile XML
-    const xmlProfile = generateProfileXML(email, password, fullname);
+    const xmlProfile = generateProfileXML(email, password, fullname, alias);
 
     // Create a Blob with the XML data
     const blob = new Blob([xmlProfile], { type: 'application/x-apple-aspen-config' });
@@ -28,10 +29,13 @@ document.getElementById('profile-form').addEventListener('submit', function(e) {
     document.getElementById('message').textContent = 'Profile has been generated and downloaded!';
 });
 
-function generateProfileXML(email, password, fullname) {
-    const uuid1 = 'E040B6E0-0F9E-44AE-BC4A-EC9AF0CD9749'; // Example static UUIDs, can be generated dynamically if needed
-    const uuid2 = '0B171773-4B26-4A3D-8BCF-490D3AE87A7F';
-	const uuid3 = '8C9FACBA-89CF-43EF-BC63-88F2FD1270AF';
+function generateProfileXML(email, password, fullname, alias) {
+    //const uuid1 = 'E040B6E0-0F9E-44AE-BC4A-EC9AF0CD9749'; // Example static UUIDs, can be generated dynamically if needed
+    //const uuid2 = '0B171773-4B26-4A3D-8BCF-490D3AE87A7F';
+	//const uuid3 = '8C9FACBA-89CF-43EF-BC63-88F2FD1270AF';
+	const uuid1 = crypto.randomUUID();
+	const uuid2 = crypto.randomUUID();
+	const uuid3 = crypto.randomUUID();
 
     // Replace placeholders with user input
     return `<?xml version="1.0" encoding="UTF-8"?>
@@ -48,7 +52,7 @@ function generateProfileXML(email, password, fullname) {
 			<key>EmailAccountType</key>
 			<string>EmailTypeIMAP</string>
 			<key>EmailAddress</key>
-			<string>${email}</string>
+			<string>${alias}</string>
 			<key>IncomingMailServerAuthentication</key>
 			<string>EmailAuthPassword</string>
 			<key>IncomingMailServerHostName</key>
