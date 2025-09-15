@@ -79,6 +79,9 @@ p {
 
 .checkbox-left input[type="checkbox"] {
     margin: 0;
+    vertical-align: middle;
+    height: 1em;
+    width: 1em;
 }
 
 .bordered-text {
