@@ -9,16 +9,10 @@ document.getElementById('profile-form').addEventListener('submit', function(e) {
 	
 	// Keep main login address as a sender address.
 	let emailAddressValue = username;
-
-	// Add aliases if provided.
+	
+	// Add alias if provided.
 	if (useAliasChecked && aliasText !== "") {
-		emailAddressValue = `${username},${aliasText}`.replace(/,\s*/g, ',');
-	}
-
-	// Ensure addresses are valid.
-	if (!isValidAliasList(emailAddressValue)) {
-		alert("Invalid email address or alias list.")
-		return;
+		emailAddressValue = `${username},${aliasText}`;
 	}
     
 	// Notify user of missing credentials.
@@ -43,28 +37,6 @@ document.getElementById('profile-form').addEventListener('submit', function(e) {
     // Show success message.
     document.getElementById('message').textContent = 'Profile has been generated and downloaded!';
 });
-
-function isValidAliasList(value) {
-	// No spaces or trailing comma.
-	if (value.endsWith(',') || value.includes(' ')) 
-		return false;
-
-	const aliases = value.split(',');
-
-	for (let alias of aliases) {
-		// Must not be empty.
-		if (alias === '') return false;
-
-		// Must contain exactly one "@".
-		const parts = alias.split('@');
-		if (parts.length !== 2) return false;
-
-		// Both sides of "@" must have content.
-		if (parts[0] === '' || parts[1] === '') return false;
-	}
-
-	return true;
-}
 
 function generateProfileXML(username, password, fullname, emailAddressValue) {
     const uuid1 = '6c162701-17b5-4b98-aea6-c923f6957a7e';

@@ -89,10 +89,3 @@ p {
     padding: 10px;
     display: inline-block;
 }
-
-.hint {
-    display: block;
-    margin-top: 6px;
-    font-size: 12px;
-    color: #888;
-}

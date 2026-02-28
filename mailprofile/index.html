@@ -22,17 +22,20 @@
             <div class="form-group">
                 <label for="useAlias" class="checkbox-left">
                     <input type="checkbox" id="useAlias">
-                    Add Sender Aliases
+                    Use Sender Alias
                 </label>
             </div>
             <div class="form-group" id="aliasContainer" style="display: none;">
-                <label for="alias">Sender Alias Addresses:</label>
-                <input inputmode="email" id="alias" placeholder="Sender Addresses">
-                <small class="hint">You can enter multiple aliases separated by commas.</small>
+                <label for="alias">Sender Alias Address:</label>
+                <input type="email" id="alias" placeholder="Sender Email">
             </div>
+
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" required placeholder="Your Password">
+            </div>
+            <div class="form-group">
+                <p2 class="bordered-text">Please remove any old BlueComet Mail profiles before generating a new one.</p2>
             </div>
             <button type="submit" id="generate-btn">Generate Profile</button>
         </form>
