@@ -1,43 +1,52 @@
 document.getElementById('profile-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const email = document.getElementById('email').value.trim();
+    const username = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
     const fullname = document.getElementById('fullname').value.trim();
-	const alias_text = document.getElementById('alias').value.trim();
-	const alias = (alias_text == "") ? email : alias_text;
-
-    if (!email || !password || !fullname) {
+	const aliasText = document.getElementById('alias').value.trim();
+	const useAliasChecked = document.getElementById('useAlias').checked;
+	
+	// Keep main login address as a sender address.
+	let emailAddressValue = username;
+	
+	// Add alias if provided.
+	if (useAliasChecked && aliasText !== "") {
+		emailAddressValue = `${username},${aliasText}`;
+	}
+    
+	// Notify user of missing credentials.
+	if (!username || !password || !fullname) {
         alert("At least one field is missing.");
         return;
     }
 
-    // Generate the iOS configuration profile XML
-    const xmlProfile = generateProfileXML(email, password, fullname, alias);
+    // Generate the iOS configuration profile XML.
+    const xmlProfile = generateProfileXML(username, password, fullname, emailAddressValue);
 
-    // Create a Blob with the XML data
+    // Create a Blob with the XML data.
     const blob = new Blob([xmlProfile], { type: 'application/x-apple-aspen-config' });
     const url = URL.createObjectURL(blob);
     
-    // Create a temporary link to trigger the download
+    // Create a temporary link to trigger the download.
     const a = document.createElement('a');
     a.href = url;
     a.download = 'profile.mobileconfig';
     a.click();
     
-    // Show success message
+    // Show success message.
     document.getElementById('message').textContent = 'Profile has been generated and downloaded!';
 });
 
-function generateProfileXML(email, password, fullname, alias) {
-    //const uuid1 = 'E040B6E0-0F9E-44AE-BC4A-EC9AF0CD9749'; // Example static UUIDs, can be generated dynamically if needed
-    //const uuid2 = '0B171773-4B26-4A3D-8BCF-490D3AE87A7F';
-	//const uuid3 = '8C9FACBA-89CF-43EF-BC63-88F2FD1270AF';
-	const uuid1 = crypto.randomUUID();
-	const uuid2 = crypto.randomUUID();
-	const uuid3 = crypto.randomUUID();
+function generateProfileXML(username, password, fullname, emailAddressValue) {
+    const uuid1 = '6c162701-17b5-4b98-aea6-c923f6957a7e';
+    const uuid2 = 'eecd0c4b-1311-4f78-a7fa-2ec2c83f6fae';
+	const uuid3 = 'bbfc6bc-48ce-4d7d-8e50-cdff4bde6890';
+	//const uuid1 = crypto.randomUUID();
+	//const uuid2 = crypto.randomUUID();
+	//const uuid3 = crypto.randomUUID();
 
-    // Replace placeholders with user input
+    // Replace placeholders with user input.
     return `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -52,7 +61,7 @@ function generateProfileXML(email, password, fullname, alias) {
 			<key>EmailAccountType</key>
 			<string>EmailTypeIMAP</string>
 			<key>EmailAddress</key>
-			<string>${alias}</string>
+			<string>${emailAddressValue}</string>
 			<key>IncomingMailServerAuthentication</key>
 			<string>EmailAuthPassword</string>
 			<key>IncomingMailServerHostName</key>
@@ -62,7 +71,7 @@ function generateProfileXML(email, password, fullname, alias) {
 			<key>IncomingMailServerUseSSL</key>
 			<true/>
 			<key>IncomingMailServerUsername</key>
-			<string>${email}</string>
+			<string>${username}</string>
 			<key>IncomingPassword</key>
 			<string>${password}</string>
 			<key>OutgoingMailServerAuthentication</key>
@@ -70,11 +79,11 @@ function generateProfileXML(email, password, fullname, alias) {
 			<key>OutgoingMailServerHostName</key>
 			<string>mx1.admin.bcomet.net</string>
 			<key>OutgoingMailServerPortNumber</key>
-			<integer>587</integer>
+			<integer>465</integer>
 			<key>OutgoingMailServerUseSSL</key>
 			<true/>
 			<key>OutgoingMailServerUsername</key>
-			<string>${email}</string>
+			<string>${username}</string>
 			<key>OutgoingPasswordSameAsIncomingPassword</key>
 			<true/>
 			<key>PayloadDescription</key>
